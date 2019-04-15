@@ -26,32 +26,39 @@
 
 <script type="text/javascript" src="../js/vue.js"></script>
 <script type="text/javascript">
-  const p = {
-    firstName: 'A',
-    lastName: 'B'
-  }
+  const vm = new Vue({
+    el:'#demo',
+    data: {
+      firstName:'A',
+      lastName:'B',
+      fullName3: 'A-r'
+    },
+    computed: {
+      fullName1() {
+        return this.firstName + '-' + this.lastName
+      },
+      fullName2: {
+        get(){
+          return this.firstName + '-' + this.lastName
+        },
+        set(value){
+          const name = value.split('-');
+          this.firstName = name[0];
+          this.lastName = name[1]
+        }
+      }
+    },
 
- Object.defineProperty(p, 'fullName', {
-  get(){
-    console.log('get')
-    return this.firstName + this.lastName
-  },
-  set(value){
-    const name = value.split('');
-    console.log('set')
-    console.log('name',name)
-    this.firstName = name[0]
-    this.lastName = name[1]
-  }
-  
- })
-
- console.log(p.fullName)
- p.fullName='EF';
- console.log('fullName',p.fullName)
- console.log('firstName',p.firstName)
- console.log('lastName',p.lastName)
-
+    watch: {
+      firstName (value){
+        this.fullName3 = value + '-' + this.lastName;
+      },
+      
+    }
+  })
+  vm.$watch('lastName', function(value){
+    this.fullName3 = this.firstName+ '-' + value;
+  })
 </script>
 </body>
 </html>
