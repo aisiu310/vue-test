@@ -34,9 +34,26 @@
     data: {
       isShow:true
     },
+    
+    beforeCreate() {
+      console.log('beforeCreate()')
+    },
 
+    created() {
+      console.log('created()')
+    },
+    beforeMount() {
+      console.log('beforeMount()')
+    },
+    beforeUpdate() {
+      console.log('beforeUpdate()')
+    },
+    updated() {
+      console.log('updated()')
+    },
     //执行异步任务:发送ajax请求
     mounted () {  
+      console.log('mounted()')
       this.intervalId = setInterval(() => {
         console.log('-----')
         this.isShow = !this.isShow
@@ -45,11 +62,13 @@
 
     //清除定时器
     beforeDestroy () {
+      console.log('beforeDestroy()')
       clearInterval(this.intervalId)
     },
 
     methods: {
       destoryVue () {
+        console.log('destroyed()')
         //销毁组件
         this.$destroy()
       }
